@@ -1,0 +1,39 @@
+version: '3.9'
+services:
+  server:
+    container_name: "server_dev"
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: sh -c "npm run dev"
+    environment:
+      - DB_NAME=$MYSQL_DATABASE_DEV
+      - DB_USER=$MYSQL_USER_DEV
+      - DB_PASSWORD=$MYSQL_PASSWORD_DEV
+      - NODE_ENV=$NODE_ENV_DEV
+      - PORT=$LOCAL_PORT_SERVER_DEV
+    ports:
+      - $LOCAL_PORT_SERVER_DEV:$REMOTE_PORT_SERVER_DEV
+    volumes:
+      - .:/app
+    links:
+      - db
+  db:
+    container_name: "db_dev"
+    image: mysql:8
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD_DEV
+      - MYSQL_DATABASE=$MYSQL_DATABASE_DEV
+      - MYSQL_USER=$MYSQL_USER_DEV
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD_DEV
+    ports:
+      - $LOCAL_PORT_DB_DEV:$REMOTE_PORT_DB_DEV
+    volumes:
+      - ./data:/var/lib/mysql
+volumes:
+  data:

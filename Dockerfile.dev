@@ -1,0 +1,15 @@
+# Usa una imagen base de Node.js con la versión deseada
+FROM node:18-alpine3.16
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia el archivo package.json y pnpm-lock.yaml al directorio de trabajo
+COPY package*.json ./
+
+# Instala las dependencias del proyecto utilizando pnpm
+RUN npm install
+
+# Copia el resto de los archivos del proyecto al directorio de trabajo
+COPY . .
+
