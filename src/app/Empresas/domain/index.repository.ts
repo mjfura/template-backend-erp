@@ -1,5 +1,8 @@
-import { EmpresaEntity } from "./index.entity";
+import { ResponseErrorValue } from "../../../domain/responser";
+import { EmpresaValue } from "./index.value";
 
 export interface EmpresaRepository{
-    getEmpresas(id:string):Promise<Array<EmpresaEntity>>
+    getEmpresas():Promise<Array<EmpresaValue>|ResponseErrorValue>
+    getEmpresaBySubdominio(subdominio:string):Promise<EmpresaValue|null>
+    createEmpresa(body:EmpresaValue):Promise<EmpresaValue|null>
 }

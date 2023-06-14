@@ -2,6 +2,9 @@ export interface EmpresaEntity{
     id:string,
     nombre:string,
     subdominio:string,
-    logo?:string|null,
-    description?:string|null
+    correo:string|null,
+    telefono:string|null,
+    logo:string|null,
+    description:string|null,
+    active:boolean
 }
