@@ -11,12 +11,12 @@ export class EmpresaValue implements EmpresaEntity{
     public readonly telefono: string|null;
     public readonly active: boolean;
 
-    constructor(empresa: Omit<EmpresaEntity,"id">){
+    constructor(empresa: Omit<EmpresaEntity,"id"|"active">){
         this.id = uuid();
         this.nombre = empresa.nombre;
         this.correo = empresa.correo;
         this.telefono = empresa.telefono;
-        this.active = empresa.active;
+        this.active = true;
         this.subdominio = empresa.subdominio;
         this.logo = empresa.logo;
         this.description = empresa.description;

@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  server:
+  server_dev:
     container_name: "server_dev"
     env_file:
       - .env
@@ -13,14 +13,15 @@ services:
       - DB_USER=$MYSQL_USER_DEV
       - DB_PASSWORD=$MYSQL_PASSWORD_DEV
       - NODE_ENV=$NODE_ENV_DEV
+      - DB_HOST=db_dev
       - PORT=$LOCAL_PORT_SERVER_DEV
     ports:
       - $LOCAL_PORT_SERVER_DEV:$REMOTE_PORT_SERVER_DEV
     volumes:
       - .:/app
     links:
-      - db
-  db:
+      - db_dev
+  db_dev:
     container_name: "db_dev"
     image: mysql:8
     restart: always

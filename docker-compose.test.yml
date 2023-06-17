@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  server_test:
+    container_name: "server_test"
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: sh -c "npm run dev"
+    environment:
+      - DB_NAME=$MYSQL_DATABASE_TEST
+      - DB_USER=$MYSQL_USER_TEST
+      - DB_PASSWORD=$MYSQL_PASSWORD_TEST
+      - NODE_ENV=$NODE_ENV_TEST
+      - DB_HOST=db_test
+      - PORT=$LOCAL_PORT_SERVER_TEST
+    ports:
+      - $LOCAL_PORT_SERVER_TEST:$REMOTE_PORT_SERVER_TEST
+    volumes:
+      - .:/app
+    links:
+      - db_test
+  db_test:
+    container_name: "db_test"
+    image: mysql:8
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD_TEST
+      - MYSQL_DATABASE=$MYSQL_DATABASE_TEST
+      - MYSQL_USER=$MYSQL_USER_TEST
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD_TEST
+    ports:
+      - $LOCAL_PORT_DB_TEST:$REMOTE_PORT_DB_TEST
+    volumes:
+      - ./data:/var/lib/mysql
+volumes:
+  data:

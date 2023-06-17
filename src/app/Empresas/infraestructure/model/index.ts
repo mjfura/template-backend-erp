@@ -4,7 +4,7 @@ import { dbInstance } from '../../../../infraestructure/db/dependencies';
 
 
 
-class Empresa extends Model<Omit<EmpresaEntity,"creado"|"modificado">> implements Omit<EmpresaEntity,"creado"|"modificado"> {
+class Empresa extends Model<EmpresaEntity> implements EmpresaEntity {
   public id!: string;
   public nombre!: string;
   public subdominio!: string;
@@ -22,7 +22,8 @@ export const EmpresaModel= Empresa.init(
     id:{
       type:DataTypes.STRING,
       allowNull:false,
-      unique:true
+      unique:true,
+      primaryKey:true
     },
     nombre: {
       type: DataTypes.STRING,
