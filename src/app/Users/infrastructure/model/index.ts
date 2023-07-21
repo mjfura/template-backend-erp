@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { UserEntity } from "../../domain";
-import { dbInstance } from "../../../../infraestructure/db/dependencies";
+import { dbInstance } from "../../../../infrastructure/db/dependencies";
 
 class User extends Model<UserEntity> implements UserEntity {
   public id!: string;

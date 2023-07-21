@@ -1,19 +1,12 @@
-import { ResponseErrorEntity, ResponseErrorValue, ResponseRepository, ResponseSuccessEntity, ResponseSuccessValue } from "../../domain/responser"
+import { ResponseErrorEntity, ResponseErrorValue, ResponseSuccessEntity, ResponseSuccessValue, ResponserRepository } from "../../domain/responser"
 
-export class ResponseUseCase{
-    constructor(private readonly repository:ResponseRepository){}
-    public sendSuccess(param:ResponseSuccessEntity):void{
-        const value=new ResponseSuccessValue(param)
-        this.repository.sendSuccess(value)
+export class ResponserUseCase{
+    constructor(private readonly repository:ResponserRepository){}
+    public sendSuccess(param:ResponseSuccessEntity):ResponseSuccessValue{
+        return this.repository.sendSuccess(param)
     }
-    public sendError(param:ResponseErrorEntity):void{
-        const value=new ResponseErrorValue(param)
-        this.repository.sendError({
-            message:value.message,
-            status:value.status,
-            title:value.title,
-            code:value.code,
-            context:value.context
+    public sendError(param:ResponseErrorEntity):ResponseErrorValue{
+        return this.repository.sendError({...param
         })
     }
 }

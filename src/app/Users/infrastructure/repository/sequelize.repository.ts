@@ -11,7 +11,7 @@ export class SequelizeRepository implements UserRepository {
         }catch(e){
             console.log("error ",e)
             const error=e as Error
-            const responseError:ResponseErrorValue={
+            const responseError=new ResponseErrorValue({
                 message:error.message??'Ha ocurrido un error al crear un usuario',
                 title:'Error en Base de Datos',
                 status:false,
@@ -20,7 +20,7 @@ export class SequelizeRepository implements UserRepository {
                     error
                 }   
 
-            }
+            })
             return responseError
         }
     }

@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { MockRepository, SequelizeRepository } from "../repository"
 import { EmpresaUseCase } from "../../application"
-import { ConsoleRepository } from "../../../../infraestructure/logger/repository"
+import { ConsoleRepository } from "../../../../infrastructure/logger/repository"
 import { EmpresaController } from "../controllers"
 import { EmpresaMiddleware } from "../middlewares"
 import { NODE_ENV } from "../../../../config"

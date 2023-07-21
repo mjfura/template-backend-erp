@@ -3,7 +3,7 @@ import { ResponseErrorValue, ResponseSuccessValue } from "../../../domain/respon
 import { UserEntity, UserRepository, UserValue } from "../domain"
 import { v4 as uuid } from "uuid";
 
-export class EmpresaUseCase{
+export class UserUseCase{
     constructor(private readonly repository:UserRepository,
         private readonly logger:LoggerRepository){}
     

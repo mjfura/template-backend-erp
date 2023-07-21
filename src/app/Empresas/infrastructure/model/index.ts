@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import { EmpresaEntity } from '../../domain';
-import { dbInstance } from '../../../../infraestructure/db/dependencies';
+import { dbInstance } from '../../../../infrastructure/db/dependencies';
 
 
 

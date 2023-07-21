@@ -1,6 +1,6 @@
 import { NODE_ENV, PORT } from "./config"
-import { dbInstance } from "./infraestructure/db/dependencies"
-import { logger } from "./infraestructure/logger/dependencies"
+import { dbInstance } from "./infrastructure/db/dependencies"
+import { logger } from "./infrastructure/logger/dependencies"
 import app from "./main"
 dbInstance.sync().then(()=>{
     app.listen(PORT,async ()=>{
