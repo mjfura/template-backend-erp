@@ -5,6 +5,7 @@ import { ConsoleRepository } from "../../../../infrastructure/logger/repository"
 import { UserUseCase } from "../../application"
 import { UserController } from "../controllers"
 import { appMiddleware } from "../../../../infrastructure/middlewares"
+import { BcryptRepository } from "../../../../infrastructure/encrypter/repository"
 
 const userRoutes = Router()
 
@@ -13,10 +14,10 @@ if(NODE_ENV==="testing"){
     userRepo=new MockRepository()
 }
 const loggerRepo=new ConsoleRepository()
+const encrypterRepo=new BcryptRepository()
 
 
-
-const userUseCase = new UserUseCase(userRepo,loggerRepo)
+const userUseCase = new UserUseCase(userRepo,loggerRepo,encrypterRepo)
 
 
 

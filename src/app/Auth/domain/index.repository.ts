@@ -1,5 +1,5 @@
-import { ResponseErrorValue } from "../../../domain/responser";
+import { ResponseErrorValue, ResponseSuccessValue } from "../../../domain/responser";
 
 export interface AuthRepository{
-    login:()=>Promise<any|ResponseErrorValue>
+    login:()=>Promise<ResponseSuccessValue|ResponseErrorValue>
 }
