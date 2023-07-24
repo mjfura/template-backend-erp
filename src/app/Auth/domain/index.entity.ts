@@ -3,3 +3,6 @@ export interface LoginCredentialsEntity{
     password:string,
     idEmpresa:string
 }
+export interface LoginResponseEntity{
+    token:string
+}

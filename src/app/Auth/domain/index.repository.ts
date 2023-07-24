@@ -1,5 +1,7 @@
-import { ResponseErrorValue, ResponseSuccessValue } from "../../../domain/responser";
+import { ResponseErrorValue } from "../../../domain/responser";
+import { LoginResponseEntity } from "./index.entity";
+import { LoginCredentialsValue } from "./index.value";
 
 export interface AuthRepository{
-    login:()=>Promise<ResponseSuccessValue|ResponseErrorValue>
+    login:(credentials:LoginCredentialsValue)=>Promise<LoginResponseEntity|ResponseErrorValue>
 }

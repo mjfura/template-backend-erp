@@ -24,5 +24,32 @@ export class SequelizeRepository implements UserRepository {
             return responseError
         }
     }
+    async getUserByEmpresaAndCorreo(empresa: string, correo: string): Promise<ResponseUserEntity | ResponseErrorValue> {
+        try{
+            const user=await UserModel.findOne({
+                where:{
+                    empresa_id:empresa,
+                    correo
+                }
+                
+            })
+            if(!user) throw new Error("Usuario no encontrado")
+            return user
+        }
+        catch(e){
+            console.log("error ",e)
+            const error=e as Error
+            const responseError=new ResponseErrorValue({
+                message:error.message??'Ha ocurrido un error al obtener el usuario',
+                title:'Error en Base de Datos',
+                status:false,
+                code:500,
+                context:{
+                    error
+                }
+            })
+            return responseError
+        }
+    }
    
 }

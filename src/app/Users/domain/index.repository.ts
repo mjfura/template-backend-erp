@@ -1,6 +1,8 @@
 import { ResponseErrorValue } from "../../../domain/responser";
-import { UserEntity } from "./index.entity";
+import { ResponseUserEntity, UserEntity } from "./index.entity";
 
 export interface UserRepository{
-    createUser(params:UserEntity):Promise<any|ResponseErrorValue>
+    createUser(params:UserEntity):Promise<any|ResponseErrorValue>,
+    getUserByEmpresaAndCorreo(empresa:string,correo:string):Promise<ResponseUserEntity|ResponseErrorValue>,
+    
 }
