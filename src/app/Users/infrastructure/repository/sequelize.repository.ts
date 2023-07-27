@@ -1,5 +1,5 @@
 import { ResponseErrorValue } from "../../../../domain/responser"
-import { ResponseUserEntity, UserRepository, UserValue } from "../../domain"
+import { ResponseUserEntity, UserEntity, UserRepository, UserValue } from "../../domain"
 import { UserModel } from "../model"
 
 export class SequelizeRepository implements UserRepository {
@@ -35,6 +35,29 @@ export class SequelizeRepository implements UserRepository {
             })
             if(!user) throw new Error("Usuario no encontrado")
             return user
+        }
+        catch(e){
+            console.log("error ",e)
+            const error=e as Error
+            const responseError=new ResponseErrorValue({
+                message:error.message??'Ha ocurrido un error al obtener el usuario',
+                title:'Error en Base de Datos',
+                status:false,
+                code:500,
+                context:{
+                    error
+                }
+            })
+            return responseError
+        }
+    }
+    async editUser(id:string,params: Partial<Omit<UserEntity,'id'>>): Promise<ResponseUserEntity | ResponseErrorValue> {
+        try{
+            const user=await UserModel.findByPk(id)
+            if(!user) throw new Error("Usuario no encontrado")
+            const response=await user.update(params)
+            
+            return response
         }
         catch(e){
             console.log("error ",e)

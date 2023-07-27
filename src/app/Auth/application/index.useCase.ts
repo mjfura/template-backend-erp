@@ -2,10 +2,10 @@ import { EncrypterRepository } from "../../../domain/encrypter"
 import { ResponseErrorValue, ResponseSuccessValue } from "../../../domain/responser"
 import { TokenRepository } from "../../../domain/token"
 import { UserRepository } from "../../Users/domain"
-import { AuthRepository, LoginCredentialsEntity, LoginCredentialsValue } from "../domain"
+import { LoginCredentialsEntity, LoginCredentialsValue } from "../domain"
 
 export class AuthUseCase{
-    constructor(private readonly repository:AuthRepository,
+    constructor(
         private readonly userRepository:UserRepository,
         private readonly tokenRepository:TokenRepository,
         private readonly encrypter:EncrypterRepository){}
@@ -30,7 +30,9 @@ export class AuthUseCase{
                 permiso:user.permiso
             })
            // update user
-            const response=await this.repository.login(credentials)
+            const response=await this.userRepository.editUser(user.id,{
+                lastLogin:new Date()
+            })
             if(response instanceof ResponseErrorValue){
                 return response
             }
@@ -40,7 +42,11 @@ export class AuthUseCase{
                 title:"Usuario autenticado exitosamente",
                 status:true,
                 data:{
-                    ...response
+                    correo:user.correo,
+                    empresa_id:user.empresa_id??null,
+                    permiso:user.permiso,
+                    nombres:user.nombre+' '+user.apellido,
+                    token
                 }
             })
             return result

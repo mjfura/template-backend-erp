@@ -4,5 +4,5 @@ import { ResponseUserEntity, UserEntity } from "./index.entity";
 export interface UserRepository{
     createUser(params:UserEntity):Promise<any|ResponseErrorValue>,
     getUserByEmpresaAndCorreo(empresa:string,correo:string):Promise<ResponseUserEntity|ResponseErrorValue>,
-    
+    editUser(id:string,params:Partial<UserEntity>):Promise<ResponseUserEntity|ResponseErrorValue>,
 }

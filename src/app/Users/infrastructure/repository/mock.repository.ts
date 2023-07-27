@@ -1,5 +1,5 @@
 import { ResponseErrorValue } from "../../../../domain/responser";
-import { ResponseUserEntity, UserRepository, UserValue } from "../../domain";
+import { ResponseUserEntity, UserEntity, UserRepository, UserValue } from "../../domain";
 
 export class MockRepository implements UserRepository {
     
@@ -86,6 +86,43 @@ export class MockRepository implements UserRepository {
             return responseError
         }
     }
-    
+    async editUser(id: string, params: Partial<UserEntity>): Promise<ResponseUserEntity | ResponseErrorValue> {
+         try{
+            const mockPromise=()=>new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if(!id){
+                        reject(new Error("ID de usuario no recibida"))
+                    }
+                  const data:ResponseUserEntity = {
+                  apellido:params.apellido??'Gonzalez',
+                  nombre:params.nombre??'Marco',
+                  correo:params.correo??'XXXXXXXXXXXXXXXXXXX',
+                  password:params.password??'XXXXXXXXXXXXXXXXXXX',
+                  permiso:params.permiso??'2',
+                  id,
+                  creado:new Date(),
+                  modificado:new Date()
+                  };
+                  resolve(data);
+                
+                }, 500); 
+            })
+            const newUser=await mockPromise() as ResponseUserEntity
+            return newUser
+        }catch(e){
+            console.log("error ",e)
+            const error=e as Error
+            const responseError=new ResponseErrorValue({
+                message:error.message??'Ha ocurrido un error al obtener el usuario',
+                title:'Error en Base de Datos',
+                status:false,
+                code:500,
+                context:{
+                    error
+                }
+            })
+            return responseError
+        }
+    }
     
 }
