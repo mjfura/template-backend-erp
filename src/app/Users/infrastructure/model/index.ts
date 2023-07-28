@@ -72,7 +72,7 @@ User.init(
       allowNull: true,
       defaultValue: null,
       references: {
-        model: 'Empresa',
+        model: EmpresaModel,
         key: 'id',
       },
     }
