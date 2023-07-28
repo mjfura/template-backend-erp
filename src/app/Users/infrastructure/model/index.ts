@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { UserEntity } from "../../domain";
 import { dbInstance } from "../../../../infrastructure/db/dependencies";
+import { EmpresaModel } from "../../../Empresas/infrastructure/model";
 
 class User extends Model<UserEntity> implements UserEntity {
   public id!: string;
@@ -86,6 +87,6 @@ User.init(
     updatedAt:"modificado"
   }
 );
-User.belongsTo(dbInstance.models.Empresa, { foreignKey: 'empresa_id', targetKey: 'id', as: 'empresa' });
+User.belongsTo(EmpresaModel, { foreignKey: 'empresa_id', targetKey: 'id', as: 'empresa' });
 
 export const UserModel= User
