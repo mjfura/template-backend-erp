@@ -9,7 +9,7 @@ describe("POST /api/user/createUser",()=>{
     })
     it("should return error response when correo, password werent sent ",async ()=>{
        const response=await request(app).post("/api/users/createUser").send({
-        
+        idEmpresa:1
        })
        expect(response.status).toEqual(400)
        expect(response.body.status).toBeFalsy()
@@ -23,6 +23,7 @@ describe("POST /api/user/createUser",()=>{
             nombre:"Empresa Prueba",
             subdominio:"empresaprueba",
             correo:"contacto@empresaprueba.com",
+            password:"XXXXXXXX",
             telefono:"914516266",
             logo:"",
             description:"Empresa dedicada al sector industrial"
