@@ -49,7 +49,7 @@ export class MiddlewareUseCase{
     public validateBodyParams(requiredParams:Array<ParamValidator>,params?:Record<string,unknown>):ResponseSuccessValue|ResponseErrorValue{
         if(!params || Object.keys(params).length === 0){
             const response=this.responser.sendError({
-                message:"No se envió la data para crear la empresa",
+                message:"No se envió la data en el body",
                 title:"Error en validación del body",
                 code:400,
                 status:false,

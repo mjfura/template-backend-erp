@@ -5,7 +5,7 @@ describe("POST /api/empresas/createEmpresa",()=>{
         const response=await request(app).post("/api/empresas/createEmpresa").send()
         expect(response.status).toEqual(400)
         expect(response.body.status).toBeFalsy()
-        expect(response.body.message).toBe("No se envió la data para crear la empresa")     
+        expect(response.body.message).toBe("No se envió la data en el body")     
     })
     it("should return error response when nombre and subdominio werent sent ",async ()=>{
        const response=await request(app).post("/api/empresas/createEmpresa").send({
