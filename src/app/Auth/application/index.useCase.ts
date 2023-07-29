@@ -46,6 +46,7 @@ export class AuthUseCase{
                     empresa_id:user.empresa_id??null,
                     permiso:user.permiso,
                     nombres:user.nombre+' '+user.apellido,
+                    id:user.id,
                     token
                 }
             })
