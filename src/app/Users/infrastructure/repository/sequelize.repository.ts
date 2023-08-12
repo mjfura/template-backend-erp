@@ -1,5 +1,6 @@
 import { ResponseErrorValue } from "../../../../domain/responser"
-import { ResponseUserEntity, UserEntity, UserRepository, UserValue } from "../../domain"
+import { EmpresaModel } from "../../../Empresas/infrastructure/model"
+import { ResponseUserEntity, UserEntity, UserRepository, UserValue, UserWithEmpresaEntity } from "../../domain"
 import { UserModel } from "../model"
 
 export class SequelizeRepository implements UserRepository {
@@ -24,17 +25,25 @@ export class SequelizeRepository implements UserRepository {
             return responseError
         }
     }
-    async getUserByEmpresaAndCorreo(empresa: string, correo: string): Promise<ResponseUserEntity | ResponseErrorValue> {
+    async getUserByEmpresaAndCorreo(empresa: string, correo: string): Promise<UserWithEmpresaEntity | ResponseErrorValue> {
         try{
             const user=await UserModel.findOne({
                 where:{
                     empresa_id:empresa,
                     correo
+                },
+                include: [
+                {
+                    model: EmpresaModel,
+                    as:'empresa',
+                    attributes: ['nombre','subdominio'], 
                 }
+            ]
                 
-            })
+            }) 
             if(!user) throw new Error("Usuario no encontrado")
-            return user
+            
+            return user as any
         }
         catch(e){
             console.log("error ",e)
@@ -64,6 +73,32 @@ export class SequelizeRepository implements UserRepository {
             const error=e as Error
             const responseError=new ResponseErrorValue({
                 message:error.message??'Ha ocurrido un error al obtener el usuario',
+                title:'Error en Base de Datos',
+                status:false,
+                code:500,
+                context:{
+                    error
+                }
+            })
+            return responseError
+        }
+    }
+    async getUsersByEmpresa(idEmpresa: string): Promise<ResponseUserEntity[] | ResponseErrorValue> {
+        try{
+            const user=await UserModel.findAll({
+                where:{
+                    empresa_id:idEmpresa,
+                    active:true
+                }    
+            }) 
+            if(!user) throw new Error("Usuario no encontrado")
+            
+            return user
+        }catch(e){
+            console.log("error ",e)
+            const error=e as Error
+            const responseError=new ResponseErrorValue({
+                message:error.message??'Ha ocurrido un error al obtener la lista de usuarios',
                 title:'Error en Base de Datos',
                 status:false,
                 code:500,

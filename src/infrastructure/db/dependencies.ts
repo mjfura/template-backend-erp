@@ -5,6 +5,7 @@ import { SequelizeRepository } from "./repository/sequelize.repository";
 
 const dbRepository=new SequelizeRepository()
 const dbUseCase= new DbUseCase<Sequelize>(dbRepository)
+console.log("Connecting to database...",DB_HOST,DB_NAME)
 export const dbInstance=dbUseCase.connect({
     database:DB_NAME,
     host:DB_HOST,

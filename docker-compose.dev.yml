@@ -1,7 +1,7 @@
 version: '3.9'
 services:
-  server_dev:
-    container_name: "server_dev"
+  botica_server_dev:
+    container_name: "botica_server_dev"
     env_file:
       - .env
     build:
@@ -13,7 +13,7 @@ services:
       - DB_USER=$MYSQL_USER_DEV
       - DB_PASSWORD=$MYSQL_PASSWORD_DEV
       - NODE_ENV=$NODE_ENV_DEV
-      - DB_HOST=db_dev
+      - DB_HOST=botica_db_dev
       - PORT=$LOCAL_PORT_SERVER_DEV
       - JWT_SECRET=$JWT_SECRET_DEV
     ports:
@@ -21,9 +21,9 @@ services:
     volumes:
       - .:/app
     links:
-      - db_dev
-  db_dev:
-    container_name: "db_dev"
+      - botica_db_dev
+  botica_db_dev:
+    container_name: "botica_db_dev"
     image: mysql:8
     restart: always
     env_file:

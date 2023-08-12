@@ -1,3 +1,5 @@
+import { EmpresaEntity } from "../../Empresas/domain"
+
 export interface UserEntity{
     id:string,
     correo:string,
@@ -13,4 +15,7 @@ export interface UserEntity{
 export interface ResponseUserEntity extends UserEntity{
     creado:Date,
     modificado:Date
+}
+export interface UserWithEmpresaEntity extends ResponseUserEntity{
+    empresa:Pick<EmpresaEntity,'id'|'nombre'|'subdominio'>
 }

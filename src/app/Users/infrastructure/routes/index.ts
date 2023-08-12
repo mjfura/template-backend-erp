@@ -31,6 +31,22 @@ userRoutes.post(`/createUser`,appMiddleware.validateBodyParams([{
     message:"No se envió la contraseña del usuario",
     selector:"password"
 }]), userController.createUser)
+userRoutes.get(`/getUsesByEmpresa`,appMiddleware.validateQueryParams([{
+    message:"No se envió el id de la empresa",
+    selector:"idEmpresa"
+}]),userController.getUsersByEmpresa)
+userRoutes.put(`/editUser`,appMiddleware.validateBodyParams([{
+    message:"No se envió el id de la empresa",
+    selector:"idEmpresa"
+},{
+    message:"No se envió los datos del usuario",
+    selector:"idUser"
+}]),userController.editUser)
+userRoutes.delete(`/deleteUser`,appMiddleware.validateQueryParams([{
+    message:"No se envió los datos del usuario",
+    selector:"idUser"
+}]),userController.deleteUser)
+
 
 
 export default userRoutes

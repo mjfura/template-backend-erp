@@ -15,10 +15,12 @@ export class AuthUseCase{
            const credentials=new LoginCredentialsValue({
                 ...body
             })
-            const user=await this.userRepository.getUserByEmpresaAndCorreo(credentials.idEmpresa,credentials.correo)
+            const user=await this.userRepository.getUserByEmpresaAndCorreo(credentials.idEmpresa,credentials.correo) as any
             if(user instanceof ResponseErrorValue){
                 return user
             }
+            console.log('user',user)
+            // check password
             const isPasswordCorrect=await this.encrypter.compare(credentials.password,user.password)
             if(!isPasswordCorrect) throw new Error("Contraseña incorrecta")
             
@@ -44,6 +46,8 @@ export class AuthUseCase{
                 data:{
                     correo:user.correo,
                     empresa_id:user.empresa_id??null,
+                    empresa_nombre:user.empresa.nombre??null,
+                    empresa_subdominio:user.empresa.subdominio??null,
                     permiso:user.permiso,
                     nombres:user.nombre+' '+user.apellido,
                     id:user.id,
