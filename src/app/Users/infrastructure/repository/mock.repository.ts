@@ -170,5 +170,42 @@ export class MockRepository implements UserRepository {
             return responseError
         }
     }
-    
+    async getUserById(id: string): Promise<ResponseUserEntity | ResponseErrorValue> {
+        try{
+            const mockPromise=()=>new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if(!id){
+                        reject(new Error("Datos requeridos no enviados"))
+                    }
+                  const data:ResponseUserEntity = {
+                  apellido:'Gonzalez',
+                  nombre:'Marco',
+                  correo:'XXXXXXXXXXXXXXXXXXX',
+                  password:'XXXXXXXXXXXXXXXXXXX',
+                  permiso:'2',
+                  id,
+                  creado:new Date(),
+                  modificado:new Date()
+                  };
+                  resolve(data);
+                
+                }, 500); 
+            })
+            const newUser=await mockPromise() as ResponseUserEntity
+            return newUser
+        }catch(e){
+            console.log("error ",e)
+            const error=e as Error
+            const responseError=new ResponseErrorValue({
+                message:error.message??'Ha ocurrido un error al obtener la lista de usuarios',
+                title:'Error en Base de Datos',
+                status:false,
+                code:500,
+                context:{
+                    error
+                }
+            })
+            return responseError
+        }
+    }
 }

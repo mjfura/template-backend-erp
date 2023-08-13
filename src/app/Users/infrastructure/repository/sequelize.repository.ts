@@ -89,7 +89,8 @@ export class SequelizeRepository implements UserRepository {
                 where:{
                     empresa_id:idEmpresa,
                     active:true
-                }    
+                },
+                attributes:['id','nombre','apellido','correo','permiso','creado','modificado','photo','lastLogin']    
             }) 
             if(!user) throw new Error("Usuario no encontrado")
             
@@ -99,6 +100,26 @@ export class SequelizeRepository implements UserRepository {
             const error=e as Error
             const responseError=new ResponseErrorValue({
                 message:error.message??'Ha ocurrido un error al obtener la lista de usuarios',
+                title:'Error en Base de Datos',
+                status:false,
+                code:500,
+                context:{
+                    error
+                }
+            })
+            return responseError
+        }
+    }
+    async getUserById(id: string): Promise<ResponseUserEntity | ResponseErrorValue> {
+        try{
+            const response=await UserModel.findByPk(id)
+            if(!response) throw new Error("Usuario no encontrado")
+            return response
+        }catch(e){
+            console.log("error ",e)
+            const error=e as Error
+            const responseError=new ResponseErrorValue({
+                message:error.message??'Ha ocurrido un error al obtener el usuario',
                 title:'Error en Base de Datos',
                 status:false,
                 code:500,

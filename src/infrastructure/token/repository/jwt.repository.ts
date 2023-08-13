@@ -8,7 +8,7 @@ export class JwtRepository implements TokenRepository{
         },
         JWT_SECRET as Secret,
         {
-          expiresIn: '4h'
+          expiresIn: '8h'
         })
     }
     verifyToken(token: string): PayloadUserTokenEntity|null {

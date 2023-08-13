@@ -31,10 +31,14 @@ userRoutes.post(`/createUser`,appMiddleware.validateBodyParams([{
     message:"No se envió la contraseña del usuario",
     selector:"password"
 }]), userController.createUser)
-userRoutes.get(`/getUsesByEmpresa`,appMiddleware.validateQueryParams([{
+userRoutes.get(`/getUsersByEmpresa`,appMiddleware.validateQueryParams([{
     message:"No se envió el id de la empresa",
     selector:"idEmpresa"
 }]),userController.getUsersByEmpresa)
+userRoutes.get(`/getUserById`,appMiddleware.validateQueryParams([{
+    message:"No se envió el id del usuario",
+    selector:"idUser"
+}]),userController.getUserById)
 userRoutes.put(`/editUser`,appMiddleware.validateBodyParams([{
     message:"No se envió el id de la empresa",
     selector:"idEmpresa"

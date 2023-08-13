@@ -5,5 +5,6 @@ export interface UserRepository{
     createUser(params:UserEntity):Promise<any|ResponseErrorValue>,
     getUserByEmpresaAndCorreo(empresa:string,correo:string):Promise<UserWithEmpresaEntity|ResponseErrorValue>,
     editUser(id:string,params:Partial<UserEntity>):Promise<ResponseUserEntity|ResponseErrorValue>,
-    getUsersByEmpresa(idEmpresa:string):Promise<ResponseUserEntity[]|ResponseErrorValue>
+    getUsersByEmpresa(idEmpresa:string):Promise<ResponseUserEntity[]|ResponseErrorValue>,
+    getUserById(id:string):Promise<ResponseUserEntity|ResponseErrorValue>,
 }

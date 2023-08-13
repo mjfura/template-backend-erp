@@ -85,6 +85,39 @@ export class UserUseCase{
             return error
         }
     }
+    public async getUserById(idUser:string):Promise<ResponseSuccessValue|ResponseErrorValue>{
+        try{
+            const response=await this.repository.getUserById(idUser)
+            if(response instanceof ResponseErrorValue) return response
+            const result=new ResponseSuccessValue({
+                message:"Usuarios obtenidos exitosamente",
+                title:"Petición exitosa",
+                status:true,
+                data:{
+                    usuario:response
+                }
+            })
+            return result
+        }catch(e){
+            const err=e as Error
+            this.logger.error({
+                object:{
+                    error:err
+                },
+                message:"Error en getUser UseCase"
+            })
+            const error=new ResponseErrorValue({
+                message:err.message??"Error no registrado",
+                title:"Error en getUsersById UseCase",
+                code:400,
+                status:false,
+                context:{
+                    error:e
+                }
+            })
+            return error
+        }
+    }
     public async editUser(idUser:string,body:Partial<Omit<UserEntity,'id'>>):Promise<ResponseSuccessValue|ResponseErrorValue>{
         try{
             const response=await this.repository.editUser(idUser,body)

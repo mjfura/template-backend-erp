@@ -54,6 +54,28 @@ export class UserController {
       return res.status(error.code).send(error)
     }
   }
+  public async getUserById(req: Request, res: Response) {
+    try{
+      const {idUser}=req.query as {idUser:string}
+        const response=await this.userUseCase.getUserById(idUser)
+       
+        if(response instanceof ResponseErrorValue){
+          return res.status(response.code).send(response)
+        }
+        return res.status(200).send(response)
+    }catch(e){
+      const error=new ResponseErrorValue({
+        status:false,
+        title:"Error en el controller",
+        message:"Ha ocurrido un error en el controller",
+        context:{
+          error:e,
+        },
+        code:500
+      })
+      return res.status(error.code).send(error)
+    }
+  }
   public async editUser(req: Request, res: Response) {
     try{
        const {id:idUser,...body}=req.body as UserEntity
