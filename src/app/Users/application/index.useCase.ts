@@ -123,8 +123,8 @@ export class UserUseCase{
             const response=await this.repository.editUser(idUser,body)
             if(response instanceof ResponseErrorValue) return response
             const result=new ResponseSuccessValue({
-                message:"Usuario editado exitosamente",
-                title:"Registro actualizado",
+                message:"Usuario eliminado exitosamente",
+                title:"Registro eliminado",
                 status:true,
                 data:{
                     ...response

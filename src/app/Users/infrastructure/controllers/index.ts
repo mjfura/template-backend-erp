@@ -7,6 +7,10 @@ export class UserController {
   constructor(private userUseCase: UserUseCase) {
     this.createUser = this.createUser.bind(this)
     this.getUsersByEmpresa = this.getUsersByEmpresa.bind(this)
+    this.getUserById = this.getUserById.bind(this)
+    this.editUser = this.editUser.bind(this)
+    this.deleteUser=this.deleteUser.bind(this)
+  
   }
 
   public async createUser(req: Request, res: Response) {
@@ -64,6 +68,7 @@ export class UserController {
         }
         return res.status(200).send(response)
     }catch(e){
+      console.log('error en controller getUserById',e)
       const error=new ResponseErrorValue({
         status:false,
         title:"Error en el controller",

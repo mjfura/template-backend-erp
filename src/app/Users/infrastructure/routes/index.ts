@@ -40,11 +40,8 @@ userRoutes.get(`/getUserById`,appMiddleware.validateQueryParams([{
     selector:"idUser"
 }]),userController.getUserById)
 userRoutes.put(`/editUser`,appMiddleware.validateBodyParams([{
-    message:"No se envió el id de la empresa",
-    selector:"idEmpresa"
-},{
-    message:"No se envió los datos del usuario",
-    selector:"idUser"
+    message:"No se envió el id del usuario",
+    selector:"id"
 }]),userController.editUser)
 userRoutes.delete(`/deleteUser`,appMiddleware.validateQueryParams([{
     message:"No se envió los datos del usuario",
